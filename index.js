@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
 
 // testing connection to local postgres
 // todo: move to a serparate file
+
 sequelize
   .authenticate()
   .then(() => {
@@ -32,13 +33,6 @@ sequelize
 
 // creating users table (if not already exists)
 // todo: move to a serparate file
-// User.sync().then(() => {
-//   // Now the `users` table in the database corresponds to the model definition
-//   return User.create({
-//     username: "John",
-//     password: "Hancock"
-//   });
-// });
 
 // router
 
