@@ -1,3 +1,5 @@
+const sequelize = require("./../sequelize");
+
 sequelize // require sequelize instance first
   .authenticate()
   .then(() => {

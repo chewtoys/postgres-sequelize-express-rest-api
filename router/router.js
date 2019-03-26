@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authController = require("./../controllers/authController");
 
 router.get("/", (req, res) =>
   res.json({
@@ -7,33 +8,8 @@ router.get("/", (req, res) =>
   })
 );
 
-const isValidUser = user => {
-  console.log("user validated");
-  return true;
-};
+router.post("/signup", authController.signup);
 
-router.post("/signup", (req, res, next) => {
-  // change from callback to designated Controller
-  if (isValidUser(req.body)) {
-    // should use a query from /queries folder that is responsible for creating users
-    res.json({
-      msg: "signup"
-    });
-  } else {
-    next(new Error("Invalid User"));
-  }
-});
-
-router.post("/login", (req, res, next) => {
-  // change from callback to designated Controller
-  if (isValidUser(req.body)) {
-    // should use a query from /queries folder that is responsible for creating users
-    res.json({
-      msg: "login"
-    });
-  } else {
-    next(new Error("Invalid User"));
-  }
-});
+router.post("/login", authController.login);
 
 module.exports = router;
