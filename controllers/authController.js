@@ -55,6 +55,13 @@ class AuthController {
       }
     });
   }
+
+  static logout(req, res, next) {
+    // req.logout();
+    console.log("request session", req.session);
+    req.session.destroy();
+    res.sendStatus(200);
+  }
 }
 
 module.exports = AuthController;
