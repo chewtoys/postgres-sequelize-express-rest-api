@@ -6,16 +6,23 @@ const Router = require("./router/router");
 const dotenv = require("dotenv").config();
 const sequelize = require("./sequelize");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const PORT = process.env.PORT || 3000;
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
-app.use(bodyParser.json());
 
 app.listen(PORT, () => {
   console.log("server listening on port:", PORT);
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(
+  session({
+    secret: "4564f6s4fdsfdfd",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 app.use("/api", Router);
 

@@ -51,8 +51,8 @@ class AuthController {
         res.json({ error: "No User Found" });
       } else {
         console.log("user exists");
+        res.json(userData);
       }
-      res.json(userData);
     });
   }
 }
