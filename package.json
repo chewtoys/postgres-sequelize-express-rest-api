@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "findport": "sudo lsof -t -i:1444" 
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "express-session": "^1.15.6",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.1.1"

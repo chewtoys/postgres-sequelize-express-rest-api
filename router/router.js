@@ -14,6 +14,7 @@ const isValidUser = user => {
 
 router.post("/signup", (req, res, next) => {
   if (isValidUser(req.body)) {
+      // should use a query from /queries folder that is responsible for creating users
     res.json({
       msg: "signup"
     });
