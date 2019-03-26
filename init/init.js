@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const Sequelize = require("sequelize");
 
-const self = module.exports;
 let sequelize;
 
 /**
@@ -11,14 +10,12 @@ let sequelize;
  * @returns {object} - Sequelize object
  */
 
-exports.initialize = () => {
+const initialize = () => {
   if (!sequelize) {
-    sequelize = new Sequelize(
-      "postgres://postgres:postgres@localhost:5432/authdb"
-    );
+    sequelize = new Sequelize(process.env.POSTGRES_DEV);
   }
 
   return sequelize;
 };
 
-module.exports = self.initialize();
+module.exports.initialize = initialize();

@@ -4,18 +4,28 @@ const Sequelize = require("sequelize");
 const User = require("./models/users");
 const Router = require("./router/router");
 const dotenv = require("dotenv").config();
-const PORT = process.env.PORT || 3100;
+const sequelize = require("./sequelize");
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log("server listening on port:", PORT);
 });
 
-// connection string
-// todo: move constructor to factory file
-const sequelize = new Sequelize(process.env.POSTGRES);
+app.use("/", Router);
 
-app.use("/auth", Router);
+// error handler
+// app.use(function(req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+//   });
 
-app.get("/", (req, res) => {
-  console.log("server running on port:", PORT);
-});
+//   // error handler
+//   // no stacktraces leaked to user unless in development environment
+//   app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//       message: err.message,
+//       error: (app.get('env') === 'development') ? err : {}
+//     });

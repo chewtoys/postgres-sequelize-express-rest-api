@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get("/", (req, res) =>
   res.json({
-    msg: "msg from server"
+    msg: "connected with root API route successfully."
   })
 );
 
@@ -13,8 +13,9 @@ const isValidUser = user => {
 };
 
 router.post("/signup", (req, res, next) => {
+  // change from callback to designated Controller
   if (isValidUser(req.body)) {
-      // should use a query from /queries folder that is responsible for creating users
+    // should use a query from /queries folder that is responsible for creating users
     res.json({
       msg: "signup"
     });
@@ -22,4 +23,17 @@ router.post("/signup", (req, res, next) => {
     next(new Error("Invalid User"));
   }
 });
+
+router.post("/login", (req, res, next) => {
+  // change from callback to designated Controller
+  if (isValidUser(req.body)) {
+    // should use a query from /queries folder that is responsible for creating users
+    res.json({
+      msg: "login"
+    });
+  } else {
+    next(new Error("Invalid User"));
+  }
+});
+
 module.exports = router;

@@ -23,11 +23,9 @@
 
 var Sequelize = require("sequelize");
 var bcrypt = require("bcrypt");
-
+const dotenv = require("dotenv").config();
 // create a sequelize instance with our local postgres database information.
-var sequelize = new Sequelize(
-  "postgres://postgres:postgres@localhost:5432/authdb"
-);
+var sequelize = new Sequelize(process.env.POSTGRES_DEV);
 
 // setup User model and its fields.
 var User = sequelize.define(
