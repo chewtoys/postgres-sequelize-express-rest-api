@@ -9,8 +9,9 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const PORT = process.env.PORT || 3000;
 const parseurl = require("parseurl");
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const initPassport = require("./initPassport");
 
 app.listen(PORT, () => {
   console.log("server listening on port:", PORT);
@@ -26,6 +27,8 @@ app.use(
     saveUninitialized: false
   })
 );
+
+initPassport(app);
 
 app.use("/api", Router);
 
