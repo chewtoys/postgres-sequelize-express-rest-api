@@ -21,14 +21,14 @@
 
 // module.exports.User = User;
 
-var Sequelize = require("sequelize");
-var bcrypt = require("bcrypt");
+let Sequelize = require("sequelize");
+let bcrypt = require("bcrypt");
 const dotenv = require("dotenv").config();
 // create a sequelize instance with our local postgres database information.
-var sequelize = new Sequelize(process.env.POSTGRES_DEV);
+let sequelize = new Sequelize(process.env.POSTGRES_DEV);
 
 // setup User model and its fields.
-var User = sequelize.define(
+const User = sequelize.define(
   "users",
   {
     username: {

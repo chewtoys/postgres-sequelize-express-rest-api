@@ -5,14 +5,19 @@ const User = require("./models/users");
 const Router = require("./router/router");
 const dotenv = require("dotenv").config();
 const sequelize = require("./sequelize");
-
+const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.listen(PORT, () => {
   console.log("server listening on port:", PORT);
 });
 
-app.use("/", Router);
+app.use("/api", Router);
 
 // error handler
 // app.use(function(req, res, next) {
