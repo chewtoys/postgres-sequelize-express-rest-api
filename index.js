@@ -28,7 +28,7 @@ app.use(
 initPassport(app);
 
 app.use("/api", authRouter);
-app.use("/question", authRouter);
+app.use("/question", questionRouter);
 
 app.use(function(req, res, next) {
   if (!req.session.views) {
