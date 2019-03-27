@@ -1,6 +1,5 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
 const User = require("./models/users");
 
 module.exports = function(app) {
@@ -9,22 +8,22 @@ module.exports = function(app) {
 
   passport.use(
     new LocalStrategy(function(username, password, done) {
+      console.log("inside User findOne query");
       User.findOne({
         where: {
           username: username
         }
       }).then(function(user) {
+        console.log("user verify method:", user);
         if (user == null) {
+          console.log("user is null.");
           return done(null, false, { message: "Incorrect credentials." });
         }
-
-        var hashedPassword = bcrypt.hashSync(password, user.salt);
-
-        if (user.password === hashedPassword) {
-          return done(null, user);
+        if (!user.verifyPassword(password)) {
+          console.log("verifed password failed");
+          return done(null, false, { message: "Incorrect credentials." });
         }
-
-        return done(null, false, { message: "Incorrect credentials." });
+        return done(null, user);
       });
     })
   );

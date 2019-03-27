@@ -1,16 +1,13 @@
 const express = require("express");
 const app = express();
-const Sequelize = require("sequelize");
-const User = require("./models/users");
-const Router = require("./router/router");
-const dotenv = require("dotenv").config();
-const sequelize = require("./sequelize");
+const authRouter = require("./router/auth-router");
+const questionRouter = require("./router/question-router");
+
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const PORT = process.env.PORT || 3000;
 const parseurl = require("parseurl");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const initPassport = require("./initPassport");
 
 app.listen(PORT, () => {
@@ -22,7 +19,7 @@ app.use(bodyParser.json());
 
 app.use(
   session({
-    secret: "4564f6s4fdsfdfd",
+    secret: "some_secret",
     resave: false,
     saveUninitialized: false
   })
@@ -30,7 +27,8 @@ app.use(
 
 initPassport(app);
 
-app.use("/api", Router);
+app.use("/api", authRouter);
+app.use("/question", authRouter);
 
 app.use(function(req, res, next) {
   if (!req.session.views) {
@@ -50,8 +48,18 @@ app.get("/foo", function(req, res, next) {
   res.send("you viewed this page " + req.session.views["/foo"] + " times");
 });
 
-app.get("/bar", function(req, res, next) {
-  res.send("you viewed this page " + req.session.views["/bar"] + " times");
+app.get(
+  "/bar",
+  passport.authenticate("local", { failureRedirect: "/" }),
+  function(req, res, next) {
+    res.send("you viewed this page " + req.session.views["/bar"] + " times");
+  }
+);
+
+app.get("/logout", function(req, res) {
+  req.session.destroy(function(err) {
+    res.redirect("/"); //Inside a callback… bulletproof!
+  });
 });
 // error handler
 // app.use(function(req, res, next) {

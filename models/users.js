@@ -1,33 +1,9 @@
-// const sequelize = require("./../init/init");
-// const Sequelize = require("sequelize");
-
-// const User = sequelize.define(
-//   "User",
-//   {
-//     // attributes
-//     username: {
-//       type: Sequelize.STRING,
-//       allowNull: false
-//     },
-//     password: {
-//       type: Sequelize.STRING
-//       // allowNull defaults to true
-//     }
-//   },
-//   {
-//     // options
-//   }
-// );
-
-// module.exports.User = User;
-
-let Sequelize = require("sequelize");
-let bcrypt = require("bcrypt");
+const Sequelize = require("sequelize");
+const sequelize = require("./../sequelize");
+const bcrypt = require("bcrypt");
+const Question = require("./questions");
 const dotenv = require("dotenv").config();
-// create a sequelize instance with our local postgres database information.
-let sequelize = new Sequelize(process.env.POSTGRES_DEV);
 
-// setup User model and its fields.
 const User = sequelize.define(
   "users",
   {
@@ -52,14 +28,17 @@ const User = sequelize.define(
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
       }
-    },
-    instanceMethods: {
-      validPassword: function(password) {
-        return bcrypt.compareSync(password, this.password);
-      }
     }
   }
 );
+
+User.prototype.verifyPassword = function(password) {
+  console.log(
+    "verifyPassword Called.",
+    bcrypt.compareSync(password, this.password)
+  );
+  return bcrypt.compareSync(password, this.password);
+};
 
 // create all the defined tables in the specified database.
 sequelize
@@ -70,6 +49,9 @@ sequelize
     )
   )
   .catch(error => console.log("This error occured", error));
+
+// User.hasMany(Question); // Will add userId to Task model
+User.hasMany(Question, { foreignKey: "userId" });
 
 // export User model for use in other files.
 module.exports = User;
