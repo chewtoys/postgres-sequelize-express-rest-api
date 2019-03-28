@@ -58,9 +58,10 @@ class AuthController {
   }
 
   static logout(req, res, next) {
-    // req.logout();
-    console.log("request session", req.session);
     req.logout();
+    req.session.destroy(function(err) {
+      res.redirect("/"); //Inside a callback… bulletproof!
+    });
   }
 }
 
