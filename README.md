@@ -1,4 +1,4 @@
-backend which leverages passport, express, postgres, sequelize.
+user authenticaion backend which leverages passport, express, postgres, sequelize, etc. . .
 
 usage:
 npm install && npm run dev.
