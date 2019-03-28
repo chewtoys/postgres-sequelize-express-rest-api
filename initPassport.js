@@ -29,6 +29,7 @@ module.exports = function(app) {
   );
 
   passport.serializeUser(function(user, done) {
+    console.log("user serialized:", user);
     done(null, user.id);
   });
 
@@ -41,7 +42,7 @@ module.exports = function(app) {
       if (user == null) {
         done(new Error("Wrong user id."));
       }
-
+      console.log("user deserilized:", user);
       done(null, user);
     });
   });

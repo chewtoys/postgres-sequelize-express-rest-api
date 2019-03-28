@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
+
+// *** Routers *** //
 const authRouter = require("./router/auth-router");
 const questionRouter = require("./router/question-router");
 
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const PORT = process.env.PORT || 3000;
 const parseurl = require("parseurl");
@@ -16,6 +19,7 @@ app.listen(PORT, () => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(
   session({

@@ -31,6 +31,7 @@ class AuthController {
   }
 
   static login(req, res, next) {
+    console.log("*** LOGGING IN USER ***");
     // username, email, password validators
     console.log("req.body:", req.body);
     if (!req.body.username) {
