@@ -61,6 +61,7 @@ app.get(
 );
 
 app.get("/logout", function(req, res) {
+  req.logout();
   req.session.destroy(function(err) {
     res.redirect("/"); //Inside a callback… bulletproof!
   });
