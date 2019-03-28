@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require("./../sequelize");
+const sequelize = require("../init/initSequelize");
 const dotenv = require("dotenv").config();
 const User = require("./users");
 const Question = sequelize.define("questions", {

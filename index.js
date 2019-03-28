@@ -13,7 +13,7 @@ const app = express();
  * runs in port 3000 (in some kind of angular/react/vue app for example, there will be a CORS issue simply because you're running
  * your client in localhost:3000 and send HTTP requests to localhost:1444 which violates CORS.
  */
-const initEnableCors = require("./initEnableCors");
+const initEnableCors = require("./init/initEnableCors");
 initEnableCors(app);
 
 /**
@@ -22,25 +22,25 @@ initEnableCors(app);
  * the LocalStrategy authentication paradigm is used. passport is working together with express-session
  * for managing the sessions of logged in users and their right to access their resources.
  */
-const initPassport = require("./initPassport");
+const initPassport = require("./init/initPassport");
 
 /**
  * @description: Parsers being used in this app are: bodyParser - which help our app analyse the request
  * body and expose it to the user via req.body object. another parser used is cookie-parser which is
  * used as a tool to parse the cookies being stored in the user's browser.
  */
-const initParsers = require("./initParsers");
+const initParsers = require("./init/initParsers");
 
 /**
  * @description: Routes in this app: /auth and /question. /auth is every end point that has to do
  * with user authentication (login via /auth/login,  signup via /auth/signup,  logout via /auth/logout)
  */
-const initRouters = require("./initRouters");
+const initRouters = require("./init/initRouters");
 
 /**
  * @description: express-session npm module is used for managing the req.session user session object
  */
-const initExpressSession = require("./initExpressSession");
+const initExpressSession = require("./init/initExpressSession");
 
 const PORT = process.env.PORT || 3000;
 

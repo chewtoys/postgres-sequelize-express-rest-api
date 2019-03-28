@@ -1,6 +1,6 @@
 // *** Routers *** //
-const authRouter = require("./router/auth-router");
-const questionRouter = require("./router/question-router");
+const authRouter = require("./../router/auth-router");
+const questionRouter = require("./../router/question-router");
 
 module.exports = function(app) {
   app.use("/auth", authRouter);

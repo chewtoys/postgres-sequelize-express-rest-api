@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require("./../sequelize");
+const sequelize = require("../init/initSequelize");
 const bcrypt = require("bcrypt");
 const Question = require("./questions");
 const dotenv = require("dotenv").config();
