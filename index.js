@@ -1,12 +1,18 @@
 const express = require("express");
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+// *** Routers *** //
+const authRouter = require("./router/auth-router");
+const questionRouter = require("./router/question-router");
 
+const session = require("express-session");
+const PORT = process.env.PORT || 3000;
+const parseurl = require("parseurl");
+const passport = require("passport");
 const initPassport = require("./initPassport");
-const initExpressSession = require("./initParsers");
-const initRouters = require("./initRouters");
 const initParsers = require("./initParsers");
+const initRouters = require("./initRouters");
+const initExpressSession = require("./initExpressSession");
 
 app.listen(PORT, () => {
   console.log("server listening on port:", PORT);
@@ -19,3 +25,10 @@ initExpressSession(app);
 initPassport(app);
 
 initRouters(app);
+
+app.get("/logout", function(req, res) {
+  req.logout();
+  req.session.destroy(function(err) {
+    res.redirect("/"); //Inside a callback… bulletproof!
+  });
+});
